@@ -1,170 +1,112 @@
-# Eficiência de Virtualização: Bare-metal vs Docker vs VirtualBox
+# Impacto do WSL2 no Desempenho de Hardware: Uma Análise Experimental
 
-## Descrição
+## Autor
 
-Este repositório contém os experimentos, scripts, dados e análises estatísticas utilizados no artigo científico desenvolvido para a disciplina de Infraestrutura de Hardware.
+Bernardo Carneiro Heuer Guimarães
 
-O trabalho investiga o impacto da virtualização baseada em containers e hipervisores sobre o desempenho computacional em diferentes tipos de carga de trabalho, comparando:
+## Disciplina
 
-- Execução Bare-metal
-- Containers Docker
-- Máquinas Virtuais VirtualBox
+Infraestrutura de Hardware
 
-O objetivo é avaliar o overhead introduzido por cada tecnologia em cenários CPU-bound, memory-bound e I/O-bound.
+Professor: Ronierison Maciel
 
----
-
-# Pergunta de Pesquisa
-
-> Qual o impacto da virtualização baseada em containers e hipervisores no desempenho computacional de cargas CPU-bound, memory-bound e I/O-bound em comparação à execução bare-metal?
+CESAR School – 2026
 
 ---
 
-# Objetivos
+## Resumo
 
-## Objetivo Geral
+O Windows Subsystem for Linux 2 (WSL2) tornou-se uma das principais soluções para execução de aplicações Linux em ambientes Windows. Apesar de sua ampla adoção em desenvolvimento de software, ainda existem dúvidas sobre o impacto da camada de virtualização em medições de desempenho de hardware.
 
-Comparar o desempenho computacional entre ambientes bare-metal, Docker e VirtualBox utilizando benchmarks padronizados.
+Este trabalho investiga os efeitos do WSL2 sobre métricas de CPU, memória e armazenamento por meio de experimentos controlados executados em ambiente nativo e virtualizado.
 
-## Objetivos Específicos
-
-- Medir overhead de virtualização
-- Avaliar throughput e latência
-- Comparar desempenho de CPU, memória e disco
-- Aplicar análise estatística sobre os resultados
-- Identificar diferenças estatisticamente significativas
+Os resultados serão analisados utilizando métodos estatísticos, incluindo intervalos de confiança de 95% e testes de hipótese, buscando determinar se as diferenças observadas são estatisticamente significativas.
 
 ---
 
-# Ambiente Experimental
+## Pergunta de Pesquisa
 
-## Hardware
-
-Preencher posteriormente:
-
-- Processador:
-- Quantidade de núcleos:
-- Threads:
-- Memória RAM:
-- Disco:
-- Arquitetura:
+O ambiente WSL2 produz resultados de desempenho estatisticamente equivalentes aos obtidos em execução nativa?
 
 ---
 
-## Software
+## Hipóteses
 
-- Sistema Operacional:
-- Kernel Linux:
-- Docker:
-- VirtualBox:
-- Python:
-- GCC:
+### Hipótese Nula (H0)
+
+Não existe diferença estatisticamente significativa entre os resultados de desempenho obtidos em ambiente WSL2 e em ambiente nativo.
+
+### Hipótese Alternativa (H1)
+
+Existe diferença estatisticamente significativa entre os resultados de desempenho obtidos em ambiente WSL2 e em ambiente nativo.
 
 ---
 
-# Ferramentas Utilizadas
+## Objetivos
 
-## CPU
+### Objetivo Geral
+
+Avaliar o impacto da virtualização do WSL2 em métricas de desempenho de hardware.
+
+### Objetivos Específicos
+
+- Comparar desempenho de CPU entre WSL2 e ambiente nativo.
+- Comparar largura de banda de memória.
+- Comparar desempenho de armazenamento.
+- Avaliar o comportamento de interrupções e virtualização de dispositivos.
+- Quantificar o overhead introduzido pelo WSL2.
+- Verificar a significância estatística das diferenças observadas.
+
+---
+
+## Ambiente Experimental
+
+### Hardware
+
+- CPU: Intel Core i7-12700F
+- RAM: 16 GB DDR4
+- Armazenamento: SSD NVMe 1 TB
+
+### Sistemas Operacionais
+
+#### Ambiente Nativo
+
+- Windows 11 Pro
+
+#### Ambiente Virtualizado
+
+- Ubuntu Linux executado via WSL2
+
+---
+
+## Ferramentas Utilizadas
+
+### CPU
 
 - stress-ng
-- perf
-- taskset
-
-### Exemplos
-
-```bash
-stress-ng --cpu 4 --timeout 60s
-
-perf stat -e cycles,instructions ./programa
-
-taskset -c 0,2 ./programa
-```
-
----
-
-## Memória
-
 - sysbench
-- vmstat
+- perf
 
-### Exemplos
+### Memória
 
-```bash
-sysbench memory --memory-block-size=1K run
+- sysbench memory
+- mbw
 
-sysbench memory --memory-access-mode=rnd run
-
-vmstat 1 30
-```
-
----
-
-## Entrada e Saída (I/O)
+### Armazenamento
 
 - fio
+
+### Monitoramento
+
+- vmstat
 - iostat
+- lscpu
+- free
+- lspci
 
-### Exemplos
+### Análise Estatística
 
-```bash
-fio --name=rand --rw=randread --iodepth=32
-
-fio --name=seq --rw=write --bs=1M
-
-iostat -x 1
-```
-
----
-
-# Metodologia Experimental
-
-Executados nos seguintes ambientes:
-
-- Bare-metal
-- Docker
-- VirtualBox
-
-Executados 30 vezes para:
-
-- reduzir variabilidade experimental;
-- aumentar confiabilidade dos resultados;
-- permitir análise estatística;
-- calcular intervalo de confiança de 95%;
-- aplicar testes de hipótese.
-
----
-
-# Métricas Avaliadas
-
-- Tempo de execução
-- Throughput
-- Latência
-- Uso de CPU
-- Overhead
-- IPC (Instructions Per Cycle)
-- Context Switches
-- Utilização de memória
-- IOPS
-- Bandwidth
-
----
-
-# Controle Experimental
-
-Para reduzir interferências externas:
-
-- Afinidade de CPU será controlada via `taskset`
-- Governor da CPU será fixado
-- Processos paralelos serão minimizados
-- Todos os testes utilizarão a mesma configuração de hardware
-- Os ambientes virtualizados terão recursos equivalentes
-
----
-
-# Análise Estatística
-
-Realizada em Python utilizando:
-
+- Python
 - NumPy
 - SciPy
 - Pandas
@@ -172,42 +114,118 @@ Realizada em Python utilizando:
 
 ---
 
-# Geração de Gráficos
+## Metodologia
 
-Os gráficos incluirão:
+Cada benchmark será executado no ambiente nativo e no ambiente WSL2.
 
-- Boxplots
-- Barras com erro
-- Histogramas
-- Distribuições de latência
+Para garantir rigor estatístico:
 
----
-
-# Reprodutibilidade
-
-Todos os scripts, dados brutos e resultados utilizados no artigo estarão disponíveis neste repositório para garantir reprodutibilidade experimental.
-
----
-
-# Artigo Científico
-
-O artigo será submetido para:
-
-- WSCAD 2026
-
-Utilizando:
-
-- Template oficial da SBC
+- 30 repetições por condição experimental
+- descarte das execuções de warm-up
+- coleta automatizada dos resultados
+- cálculo de média
+- cálculo de desvio padrão
+- cálculo de intervalo de confiança de 95%
+- aplicação de teste t de Student ou Wilcoxon
 
 ---
 
-# Integrantes
+## Experimentos
 
-Bernardo Heuer
-Eduardo Roma
+### Experimento 1 – CPU
+
+Objetivo:
+
+Comparar capacidade de processamento entre os ambientes.
+
+Métricas:
+
+- tempo de execução
+- throughput
+- utilização dos núcleos
+
+Ferramentas:
+
+- stress-ng
+- sysbench CPU
 
 ---
 
-# Licença
+### Experimento 2 – Memória
 
-...
+Objetivo:
+
+Avaliar largura de banda e acesso à memória.
+
+Métricas:
+
+- largura de banda (MB/s)
+- latência relativa
+
+Ferramentas:
+
+- mbw
+- sysbench memory
+
+---
+
+### Experimento 3 – Armazenamento
+
+Objetivo:
+
+Comparar desempenho de I/O.
+
+Métricas:
+
+- throughput
+- IOPS
+- latência
+
+Ferramentas:
+
+- fio
+
+---
+
+### Experimento 4 – Benchmark Integrado
+
+Objetivo:
+
+Avaliar comportamento do sistema sob carga mista.
+
+Métricas:
+
+- CPU
+- memória
+- I/O
+
+Ferramentas:
+
+- workload personalizado
+
+---
+
+## Resultados Esperados
+
+Espera-se que:
+
+- CPU apresente baixo overhead.
+- Memória apresente impacto moderado.
+- Armazenamento apresente maior degradação.
+- Alguns benchmarks apresentem diferenças estatisticamente significativas entre os ambientes.
+
+---
+
+## Ameaças à Validade
+
+- Influência do escalonador do Windows.
+- Processos em segundo plano.
+- Variações térmicas da CPU.
+- Limitações inerentes ao Hyper-V.
+- Diferenças entre sistema de arquivos virtualizado e acesso nativo.
+
+---
+
+## Licença
+
+Projeto acadêmico desenvolvido para a disciplina de Infraestrutura de Hardware da CESAR School.
