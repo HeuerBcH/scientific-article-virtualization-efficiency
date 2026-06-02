@@ -1,0 +1,72 @@
+
+Nome do host:                              BERNARDO
+Nome do sistema operacional:               Microsoft Windows 11 Pro
+Vers∆o do sistema operacional:             10.0.26200 N/A compilaá∆o 26200
+Fabricante do sistema operacional:         Microsoft Corporation
+Configuraá∆o do sistema operacional:       Estaá∆o de trabalho autìnoma
+Tipo de compilaá∆o do sistema operacional: Multiprocessor Free
+Propriet†rio registrado:                   romerooctaviano@outlook.com
+Organizaá∆o registrada:                    N/A
+Identificaá∆o do produto:                  00330-80000-00000-AA905
+Data da instalaá∆o original:               18/05/2025, 20:55:33
+Tempo de Inicializaá∆o do Sistema:         29/05/2026, 21:10:51
+Fabricante do sistema:                     Micro-Star International Co., Ltd.
+Modelo do sistema:                         MS-7D46
+Tipo de sistema:                           x64-based PC
+Processador(es):                           1 processador(es) instalado(s).
+                                           [01]: Intel64 Family 6 Model 151 Stepping 2 GenuineIntel ~2100 Mhz
+Vers∆o do BIOS:                            American Megatrends International, LLC. 1.G0, 09/01/2024
+Diret¢rio do Windows:                      C:\WINDOWS
+Diret¢rio do sistema:                      C:\WINDOWS\system32
+Inicializar dispositivo:                   \Device\HarddiskVolume5
+Localidade do sistema:                     pt-br;Portuguàs (Brasil)
+Localidade de entrada:                     pt-br;Portuguàs (Brasil)
+Fuso hor†rio:                              (UTC-03:00) Bras°lia
+Mem¢ria f°sica total:                      32.621 MB
+Mem¢ria f°sica dispon°vel:                 17.597 MB
+Mem¢ria Virtual: Tamanho M†ximo:           34.669 MB
+Mem¢ria Virtual: Dispon°vel:               15.510 MB
+Mem¢ria Virtual: Em Uso:                   19.159 MB
+Local(s) do Arquivo de P†gina:             C:\pagefile.sys
+Dom°nio:                                   WORKGROUP
+Servidor de Logon:                         \\BERNARDO
+Hotfix(es):                                7 hotfix(es) instalado(s).
+                                           [01]: KB5087051
+                                           [02]: KB5050575
+                                           [03]: KB5054156
+                                           [04]: KB5054273
+                                           [05]: KB5059093
+                                           [06]: KB5089549
+                                           [07]: KB5092762
+Placa(s) de Rede:                          2 NIC(s) instalado(s).
+                                           [01]: Intel(R) Ethernet Connection (17) I219-V
+                                                 Nome da conex∆o: Ethernet 2
+                                                 DHCP ativado:    Sim
+                                                 Servidor DHCP:   192.168.68.1
+                                                 Endereáo(es) IP
+                                                 [01]: 192.168.68.109
+                                                 [02]: fe80::1da4:9df3:f873:e9d7
+                                                 [03]: fdaa:2647:a8f6:b759:dcc2:4dc8:e1b8:905e
+                                                 [04]: fdaa:2647:a8f6:b759:49b5:67c:54e4:3779
+                                           [02]: Kaspersky VPN
+                                                 Nome da conex∆o: Conex∆o Local
+                                                 Status:          M°dia desconectada
+Seguranáa baseada em virtualizaá∆o:        Status: Executando
+                                           Propriedades de Seguranáa Necess†rias:
+                                                 Suporte para Virtualizaá∆o de Base
+                                           Propriedades de seguranáa dispon°veis:
+                                                 Suporte para Virtualizaá∆o de Base
+                                                 Inicializaá∆o Segura
+                                                 Proteá∆o do DMA
+                                                 C¢digo UEFI Somente Leitura
+                                                 SMM Security Mitigations 1.0
+                                                 Modo de controle de execuá∆o com base
+                                                 Virtualizaá∆o do APIC
+                                           Services Configured:
+                                                 Integridade de C¢digo imposta por Hypervisor
+                                           Services Running:
+                                                 Integridade de C¢digo imposta por Hypervisor
+                                           App Control for Business policy: Imposto
+                                           App Control for Business user mode policy: Desativado
+                                           Recursos de SeguranáaˇHabilitados:
+Requisitos do Hyper-V:                     Hipervisor detectado. Recursos necess†rios para o Hyper-V n∆o ser∆o exibidos.
