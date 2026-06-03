@@ -1,32 +1,30 @@
-# Impacto do WSL2 no Desempenho de Hardware: Uma Análise Experimental
+# Análise Experimental do Impacto de Diferentes Padrões de Acesso à Memória no Desempenho Computacional
 
-## Autor
+## Descrição
 
-Bernardo Carneiro Heuer Guimarães
+Este repositório contém os artefatos experimentais utilizados no desenvolvimento do artigo científico:
 
-## Disciplina
+> **Análise Experimental do Impacto de Diferentes Padrões de Acesso à Memória no Desempenho Computacional**
 
-Infraestrutura de Hardware
+O estudo investiga como diferentes padrões de acesso à memória afetam o desempenho computacional de aplicações, analisando a influência da localidade espacial e temporal sobre o tempo de execução em diferentes tamanhos de conjuntos de dados.
 
-Professor: Ronierison Maciel
-
-CESAR School – 2026
+A pesquisa busca produzir evidências quantitativas e estatisticamente validadas acerca do impacto dos padrões de acesso à memória no desempenho observado.
 
 ---
 
-## Resumo
+## Contexto
 
-O Windows Subsystem for Linux 2 (WSL2) tornou-se uma das principais soluções para execução de aplicações Linux em ambientes Windows. Apesar de sua ampla adoção em desenvolvimento de software, ainda existem dúvidas sobre o impacto da camada de virtualização em medições de desempenho de hardware.
+A memória é um dos principais componentes responsáveis pelo desempenho de sistemas computacionais modernos.
 
-Este trabalho investiga os efeitos do WSL2 sobre métricas de CPU, memória e armazenamento por meio de experimentos controlados executados em ambiente nativo e virtualizado.
+Embora processadores atuais possuam mecanismos sofisticados de otimização, como caches multinível e prefetching, o padrão utilizado para acessar dados pode influenciar significativamente a eficiência da execução de programas.
 
-Os resultados serão analisados utilizando métodos estatísticos, incluindo intervalos de confiança de 95% e testes de hipótese, buscando determinar se as diferenças observadas são estatisticamente significativas.
+Este trabalho busca avaliar experimentalmente esse comportamento por meio de benchmarks controlados e reprodutíveis.
 
 ---
 
 ## Pergunta de Pesquisa
 
-O ambiente WSL2 produz resultados de desempenho estatisticamente equivalentes aos obtidos em execução nativa?
+**Como diferentes padrões de acesso à memória influenciam o desempenho computacional de aplicações que manipulam grandes volumes de dados?**
 
 ---
 
@@ -34,198 +32,252 @@ O ambiente WSL2 produz resultados de desempenho estatisticamente equivalentes ao
 
 ### Hipótese Nula (H0)
 
-Não existe diferença estatisticamente significativa entre os resultados de desempenho obtidos em ambiente WSL2 e em ambiente nativo.
+Não existe diferença estatisticamente significativa entre os diferentes padrões de acesso à memória quanto ao desempenho computacional observado.
 
 ### Hipótese Alternativa (H1)
 
-Existe diferença estatisticamente significativa entre os resultados de desempenho obtidos em ambiente WSL2 e em ambiente nativo.
+Existe diferença estatisticamente significativa entre os diferentes padrões de acesso à memória quanto ao desempenho computacional observado.
 
 ---
 
-## Objetivos
+## Objetivo Geral
 
-### Objetivo Geral
-
-Avaliar o impacto da virtualização do WSL2 em métricas de desempenho de hardware.
-
-### Objetivos Específicos
-
-- Comparar desempenho de CPU entre WSL2 e ambiente nativo.
-- Comparar largura de banda de memória.
-- Comparar desempenho de armazenamento.
-- Avaliar o comportamento de interrupções e virtualização de dispositivos.
-- Quantificar o overhead introduzido pelo WSL2.
-- Verificar a significância estatística das diferenças observadas.
+Investigar experimentalmente a influência de diferentes padrões de acesso à memória sobre o desempenho computacional.
 
 ---
 
-## Ambiente Experimental
+## Objetivos Específicos
 
-### Hardware
+* Implementar benchmarks representando diferentes padrões de acesso à memória.
+* Avaliar o impacto desses padrões sobre o tempo de execução.
+* Comparar o comportamento observado em diferentes tamanhos de entrada.
+* Produzir análises estatísticas dos resultados obtidos.
+* Relacionar os resultados experimentais com conceitos de arquitetura de computadores e hierarquia de memória.
 
-- CPU: Intel Core i7-12700F
-- RAM: 16 GB DDR4
-- Armazenamento: SSD NVMe 1 TB
+---
 
-### Sistemas Operacionais
+## Cenários Experimentais
 
-#### Ambiente Nativo
+### Sequential Access
 
-- Windows 11 Pro
+Acesso sequencial aos elementos de uma estrutura de dados.
 
-#### Ambiente Virtualizado
+Características:
 
-- Ubuntu Linux executado via WSL2
+* Alta localidade espacial
+* Acesso previsível
+* Comportamento esperado de maior eficiência
+
+---
+
+### Random Access
+
+Acesso aleatório aos elementos da estrutura.
+
+Características:
+
+* Baixa localidade espacial
+* Baixa previsibilidade
+* Potencial impacto negativo no desempenho
+
+---
+
+### Stride Access
+
+Acesso utilizando saltos fixos entre elementos consecutivos.
+
+Exemplos:
+
+* Stride = 2
+* Stride = 4
+* Stride = 8
+* Stride = 16
+* Stride = 32
+* Stride = 64
+
+Objetivo:
+
+Avaliar como o espaçamento entre acessos influencia o desempenho.
+
+---
+
+### Block Access
+
+Acesso organizado em blocos contíguos de memória.
+
+Objetivo:
+
+Avaliar os efeitos da exploração controlada da localidade espacial.
+
+---
+
+## Tamanhos de Entrada
+
+Os experimentos serão executados com diferentes tamanhos de conjuntos de dados para avaliar possíveis mudanças de comportamento conforme o volume de dados cresce.
+
+Tamanhos planejados:
+
+* 8 KB
+* 32 KB
+* 48 KB
+* 128 KB
+* 1 MB
+* 2 MB
+* 8 MB
+* 16 MB
+* 25 MB
+* 32 MB
+* 64 MB
+* 128 MB
+
+---
+
+## Variáveis do Estudo
+
+### Variável Independente
+
+Padrão de acesso à memória.
+
+### Variável Dependente
+
+Tempo de execução.
+
+---
+
+## Métricas Coletadas
+
+### Métrica Principal
+
+* Tempo de execução (nanosegundos ou microssegundos)
+
+### Métricas Estatísticas
+
+* Média
+* Mediana
+* Desvio padrão
+* Variância
+* Intervalo de confiança de 95%
+* Ganho/perda relativa de desempenho
+
+---
+
+## Metodologia Estatística
+
+Cada cenário experimental será executado múltiplas vezes para reduzir o efeito de variações do sistema operacional e do ambiente de execução.
+
+Planejamento inicial:
+
+* 30 repetições por cenário
+
+Análises previstas:
+
+* Teste de normalidade (Shapiro-Wilk)
+* ANOVA (quando aplicável)
+* Kruskal-Wallis (quando aplicável)
+* Intervalo de confiança de 95%
 
 ---
 
 ## Ferramentas Utilizadas
 
-### CPU
+### Desenvolvimento
 
-- stress-ng
-- sysbench
-- perf
+* Linguagem C
+* GCC
 
-### Memória
+### Ambiente Experimental
 
-- sysbench memory
-- mbw
+* Ubuntu 24.04 LTS
+* WSL2
 
-### Armazenamento
+### Processamento e Análise de Dados
 
-- fio
-
-### Monitoramento
-
-- vmstat
-- iostat
-- lscpu
-- free
-- lspci
-
-### Análise Estatística
-
-- Python
-- NumPy
-- SciPy
-- Pandas
-- Matplotlib
+* Python 3
+* NumPy
+* Pandas
+* SciPy
+* Matplotlib
 
 ---
 
-## Metodologia
+## Estrutura do Repositório
 
-Cada benchmark será executado no ambiente nativo e no ambiente WSL2.
+### src/
 
-Para garantir rigor estatístico:
+Implementações dos benchmarks utilizados nos experimentos.
 
-- 30 repetições por condição experimental
-- descarte das execuções de warm-up
-- coleta automatizada dos resultados
-- cálculo de média
-- cálculo de desvio padrão
-- cálculo de intervalo de confiança de 95%
-- aplicação de teste t de Student ou Wilcoxon
+### scripts/
 
----
+Scripts responsáveis pela automação da execução dos testes, coleta dos dados e geração de resultados.
 
-## Experimentos
+### data/raw/
 
-### Experimento 1 – CPU
+Dados brutos produzidos durante os experimentos.
 
-Objetivo:
+### data/processed/
 
-Comparar capacidade de processamento entre os ambientes.
+Dados tratados e preparados para análise estatística.
 
-Métricas:
+### results/
 
-- tempo de execução
-- throughput
-- utilização dos núcleos
+Resultados finais da pesquisa.
 
-Ferramentas:
+Contém:
 
-- stress-ng
-- sysbench CPU
+* Gráficos
+* Tabelas
+* Análises estatísticas
 
----
+### experiments/
 
-### Experimento 2 – Memória
+Informações sobre hardware, sistema operacional e ambiente experimental.
 
-Objetivo:
+### docs/
 
-Avaliar largura de banda e acesso à memória.
+Materiais auxiliares:
 
-Métricas:
+* Planejamento
+* Metodologia
+* Revisão bibliográfica
 
-- largura de banda (MB/s)
-- latência relativa
+### paper/
 
-Ferramentas:
-
-- mbw
-- sysbench memory
+Arquivos relacionados ao artigo científico.
 
 ---
 
-### Experimento 3 – Armazenamento
+## Reprodutibilidade
 
-Objetivo:
+Todos os experimentos podem ser reproduzidos executando:
 
-Comparar desempenho de I/O.
+```bash
+./scripts/run_benchmarks.sh
+```
 
-Métricas:
+Os dados podem ser processados através de:
 
-- throughput
-- IOPS
-- latência
+```bash
+python scripts/process_results.py
+```
 
-Ferramentas:
+Os gráficos podem ser gerados através de:
 
-- fio
-
----
-
-### Experimento 4 – Benchmark Integrado
-
-Objetivo:
-
-Avaliar comportamento do sistema sob carga mista.
-
-Métricas:
-
-- CPU
-- memória
-- I/O
-
-Ferramentas:
-
-- workload personalizado
-
----
-
-## Resultados Esperados
-
-Espera-se que:
-
-- CPU apresente baixo overhead.
-- Memória apresente impacto moderado.
-- Armazenamento apresente maior degradação.
-- Alguns benchmarks apresentem diferenças estatisticamente significativas entre os ambientes.
-
----
-
-## Ameaças à Validade
-
-- Influência do escalonador do Windows.
-- Processos em segundo plano.
-- Variações térmicas da CPU.
-- Limitações inerentes ao Hyper-V.
-- Diferenças entre sistema de arquivos virtualizado e acesso nativo.
+```bash
+python scripts/generate_figures.py
+```
 
 ---
 
 ## Licença
 
-Projeto acadêmico desenvolvido para a disciplina de Infraestrutura de Hardware da CESAR School.
+Este projeto é disponibilizado exclusivamente para fins acadêmicos e científicos.
+
+---
+
+## Autor
+
+Bernardo Heuer
+
+Disciplina de Infraestrutura de Hardware
+
+2026
